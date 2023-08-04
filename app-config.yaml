@@ -1,9 +1,9 @@
 app:
-  title: Scaffolded Backstage App
+  title: Backend App IDP
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: Wohlig
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -118,3 +118,16 @@ catalog:
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:
     #     - allow: [User, Group]
+
+kubernetes:
+  serviceLocatorMethod:
+    type: multiTenant
+  clusterLocatorMethods:
+    - type: config
+      clusters:
+        - url: ${K8S_MINIKUBE_URL}
+          name: minikube
+          authProvider: serviceAccount
+          skipTLSVerify: true
+          skipMetricsLookup: true
+          serviceAccountToken: ${K8S_MINIKUBE_TOKEN}
